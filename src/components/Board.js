@@ -20,13 +20,21 @@ const Board = () => {
     ]
     for (let index = 0; index < lines.length; index++) {
       const [a,b,c] = lines[index];
-      
+      if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+        return squares[a];
+      }
     }
+    return null;
   }
 
   const winner = calculateWinner(squares);
+  let status;
+  if(winner) {
+    status = 'Winner: ' + winner;
+  }else {
+    status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+  }
 
-  const status = `Next player: ${xIsNext ? 'X' : 'O'}`;
   const handleClick = (i) => {
     const newSquares = squares.slice();
     newSquares[i] = xIsNext ? 'X' : 'O';
